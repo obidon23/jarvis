@@ -1,11 +1,10 @@
 var keys = require("./keys.js");
 var fs = require("fs");
-console.log(keys);
 var spotify = {
   id: keys.spotifyKeys.consumer_key,
   secret: keys.spotifyKeys.consumer_secret
 };
-console.log(spotify); 
+console.log(spotify.id); 
 
 
 var command = process.argv[2];
@@ -13,7 +12,7 @@ var searchTerm = "";
 
 // // functions
 // // spotify function
-function spotify() {
+function spotifySearch() {
 	spotify
   .search({ type: 'track', query: 'All the Small Things' })
   .then(function(response) {
@@ -74,7 +73,7 @@ function instructions(){
 
 		command = dataList[0];
 		searchTerm = dataList[1];
-		spotify();
+		spotifySearch();
 	});
 }
 //calls
@@ -84,7 +83,7 @@ switch(command) {
     movieThis();
     break;
   case "spotify-this-song":
-    spotify();
+    spotifySearch();
     break;
   case "my-tweets":
     twitter();
