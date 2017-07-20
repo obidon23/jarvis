@@ -1,0 +1,25 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "description": "my package.json for jarvis",
+  "main": "run.js",
+  "dependencies": {
+    "node-spotify-api": "^1.0.5",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "../jarvis"
+  },
+  "keywords": [
+    "bootcamp",
+    "homework",
+    "jarvis"
+  ],
+  "author": "Don Guckenberger",
+  "license": "ISC"
+}
