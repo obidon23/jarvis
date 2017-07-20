@@ -1,27 +1,52 @@
 var keys = require("./keys.js");
 var fs = require("fs");
-var spotify = {
-  id: keys.spotifyKeys.consumer_key,
-  secret: keys.spotifyKeys.consumer_secret
-};
-console.log(spotify.id); 
-
-
 var command = process.argv[2];
 var searchTerm = "";
 
-// // functions
-// // spotify function
-function spotifySearch() {
-	spotify
-  .search({ type: 'track', query: 'All the Small Things' })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(err) {
-    console.log(error);
-  });
+var Twitter = require('twitter');
+ 
+var client = new Twitter({
+  consumer_key: keys.twitterKeys.consumer_key,
+  consumer_secret: keys.twitterKeys.consumer_secret,
+  access_token_key: keys.twitterKeys.access_token_key,
+  access_token_secret: keys.twitterKeys.access_token_secret
+});
+
+// var Spotify = require('node-spotify-api');
+// console.log(Spotify);
+
+
+// var spotify = new Spotify ({
+//   id: keys.spotifyKeys.consumer_id,
+//   secret: keys.spotifyKeys.consumer_secret,
+
+// });
+
+// // // functions
+// // // spotify function
+// function spotifySearch() {
+// 	spotify
+//   .search({ type: 'track', query: '"'+searchTerm+'"' })
+//   .then(function(response) {
+//     console.log(response);
+//   })
+//   .catch(function(err) {
+//     return console.log('Error occurred: ' + err);
+//   });
+//   }
+
+// function for twitter
+function tweetFinder() {
+	var params = {screen_name: searchTerm};
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+for (var i=0; i<tweets.length; i++) {
+	console.log(tweets[i].created_at +": " +tweets[i].text+"\n");
+}
+ 
   }
+});
+}
 // function for omdb
 function movieThis() {
 	var request = require("request");
@@ -86,7 +111,7 @@ switch(command) {
     spotifySearch();
     break;
   case "my-tweets":
-    twitter();
+    myTweets();
     break;
   case "do-what-it-says":
     instructions();
