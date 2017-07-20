@@ -37,11 +37,12 @@ var client = new Twitter({
 
 // function for twitter
 function tweetFinder() {
+	searchTerm = process.argv[3];
 	var params = {screen_name: searchTerm};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
 for (var i=0; i<tweets.length; i++) {
-	console.log(tweets[i].created_at +": " +tweets[i].text+"\n");
+	console.log(tweets[i].created_at.slice(0,10) +": " +tweets[i].text+"\n");
 }
  
   }
@@ -110,8 +111,8 @@ switch(command) {
   case "spotify-this-song":
     spotifySearch();
     break;
-  case "my-tweets":
-    myTweets();
+  case "twitter":
+    tweetFinder();
     break;
   case "do-what-it-says":
     instructions();
