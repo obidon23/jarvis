@@ -25,12 +25,11 @@ var spotify = new Spotify ({
 // // spotify function
 function spotifySearch() {
 	searchTerm = '"' + process.argv.slice(3).join(" ") + '"';
-	console.log("Searching for " + searchTerm + "...\n\n\n\n\n");
+	console.log("Searching for " + searchTerm + "...\n");
 	spotify
   .search({ type: 'track', query: searchTerm, limit: 1 })
   .then(function(response) {
     console.log(`
-
 ----------------------------------------------------------------------------------------
 			You searched for the song: ${response.tracks.items[0].name} 
 			The Artist is: ${response.tracks.items[0].album.artists[0].name}
@@ -46,12 +45,13 @@ function spotifySearch() {
 
 // function for twitter
 function tweetFinder() {
-	searchTerm = '"' + process.argv.slice(3).join(" ") + '"';
-	console.log("Searching for tweets from " + searchTerm + "...\n\n\n\n\n");
-	var params = {screen_name: searchTerm};
+	searchTerm = process.argv[3];
+	console.log("Searching for tweets from " + searchTerm + "...\n");
+	var params = {screen_name: searchTerm, count: 10};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
 for (var i=0; i<tweets.length; i++) {
+  console.log("----------------------------------------------------------------------------------");
 	console.log(tweets[i].created_at.slice(0,10) +": " +tweets[i].text+"\n");
 }
  
@@ -62,10 +62,11 @@ for (var i=0; i<tweets.length; i++) {
 function movieThis() {
 	var request = require("request");
 	searchTerm = '"' + process.argv.slice(3).join(" ") + '"';
-	console.log("Searching for " + searchTerm + "...\n\n\n\n\n");
+	console.log("Searching for " + searchTerm + "...\n");
 
 	if (searchTerm === '') {
 		searchTerm = 'Mr. Nobody';
+    console.log("-------------------------------------------------------------------------------------------")
 		console.log("If you haven't seen Mr. Nobody, you should. It's great when you want to Netflix and Chill!");
 		console.log("http://www.imdb.com/title/tt0485947/");
 
@@ -108,12 +109,11 @@ function lazyUser() {
 		var dataList = data.split(",");
 		command = 'spotify-this-song';
 		searchTerm = dataList[1];
-	console.log("Searching for " + searchTerm + "...\n\n\n\n\n");
+	console.log("Searching for " + searchTerm + "...\n");
 	spotify
   .search({ type: 'track', query: searchTerm, limit: 1 })
   .then(function(response) {
     console.log(`
-
 ----------------------------------------------------------------------------------------
 			You searched for the song: ${response.tracks.items[0].name} 
 			The Artist is: ${response.tracks.items[0].album.artists[0].name}
@@ -130,7 +130,9 @@ function lazyUser() {
 }
 
 function instructions() {
-	console.log("To activate a search, use the proper command. Review the readme.txt file.");
+	console.log("-------------------------------------------------------------------------");
+  console.log("To activate a search, use the proper command. Review the readme.txt file.");
+  console.log("-------------------------------------------------------------------------");
   	
 }
 
@@ -150,7 +152,7 @@ switch(command) {
   case "do-what-it-says":
     lazyUser();
     break;
-  case (!'movie-this'||!'spotify-this-song'||!'twitter'||!'do-what-it-says'):
+  default:
   	instructions();
   	break;
 }
